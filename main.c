@@ -1,98 +1,56 @@
 // Print prompt string, read a line of input, echo the input back to the screen
+#include "minishell.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "libft/libft.h"
-
-char    **tab_env;
-
-
-char *ft_change_cwd(char *cwd)
+#include <libft.h>
+ int		ft_len_envp(char **envp)
 {
-    char    *home;
-    int     i;
-    int     j;
-    int     k;
+	int i;
 
-    i = 0;
-    while (tab_env[i] && ft_strncmp(tab_env[i], "HOME", 4) != 0)
-        i++;
-    home = (char *)malloc(sizeof(char) * (ft_strlen(cwd) + 1));
-    if (home == NULL)
-        return (NULL);
-    j = 0;
-    while (cwd[j] == tab_env[i][j + 5])
-        j++;
-    home[0] = '~';
-    home[1] = '/';
-    k = 2;
-    while (cwd[j++])
-    {
-        home[k] =cwd[j];
-        k++;
-    }
-    return(home);
+	i = 0;
+	while (envp[i])
+		i++;
+	return (i + 1);
+}
+void	ft_transformenvptoglobal(char **envp)
+{
+	int size;
+	int i;
+
+	size = ft_len_envp(envp);
+	data->tab_env = (char **)malloc(sizeof(char*) * size + 5);
+	i = -1;
+	while (++i < size - 1)
+		data->tab_env[i] = ft_strdup(envp[i]);
 }
 
-void ft_display_cwd(void)
+void ft_free(void)
 {
-    char *cwd;
-    char *home;
-    
-    cwd = (char*)malloc(sizeof(char) * 4096);
-    if (cwd == NULL)
-       return;
-    getcwd(cwd, 4096);
-    home = ft_change_cwd(cwd);
-    free(cwd);
-    printf("%s",home);
-    printf(" \033[31m︻\033[0m\033[32m┳\033[0m\033[33mデ");
-	printf("\033[0m\033[34m═\033[0m\033[35m—\033[0m$ ");
-    free(cwd);
-    free(home);
+	int i;
 
-}
-int     ft_len_envp(char **envp)
-{
-    int i;
-
-    i = 0;
-    while(envp[i])
-        i++;
-    return(i + 1);
+	i = 0;
+	while (data->tab_env[i])
+	{
+			free(data->tab_env[i]);
+			i++;
+	}
 }
 
-void ft_transformEnvpToGlobal(char **envp)
+
+int		main(int argc, char** argv, char** envp)
 {
-    int size;
-    int i;
+	int		i;
 
-    size = ft_len_envp(envp);
-    tab_env = (char **)malloc(sizeof(char*) * size + 5);
-    i = -1;
-    while (++i < size - 1)
-        tab_env[i] = ft_strdup(envp[i]);
-}
+	(void)argc;
+	(void)argv;
+	i = 0;
+	data = malloc(sizeof(t_mega_structure));
+	while (42)
+	{
+		ft_transformenvptoglobal(envp);
+		ft_display_cwd();
 
-int main(int argc, char **argv, char** envp)
-{
-    (void) argc;
-    (void) argv;
-    (void) envp;
-    
-
-    int i;
-    i =0;
-    
-    ft_transformEnvpToGlobal(envp);
-    ft_display_cwd();
-  //  printf("HOME : %s\n", getenv("HOME")); 
-  //  printf("HOMEPATH : %s\n", getenv("HOMEPATH"));
-/*
-    while(envp[i])
-    {
-         printf("%s\n",envp[i]);
-         i++;
-
-    }*/
+		//ft_free();
+	}
 }

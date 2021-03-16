@@ -4,6 +4,7 @@ CFLAGS= -Wall -Wextra -Werror
 OBJ = ${SRCS:.c=.o}
 
 SRCS = main.c\
+		display_message.c\
 		
 
 # COLORS
