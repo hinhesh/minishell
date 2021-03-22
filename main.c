@@ -4,40 +4,42 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <libft.h>
- int		ft_len_envp(char **envp)
+
+
+
+int 	ft_read_line(void)
 {
-	int i;
+	char carac[2];
 
-	i = 0;
-	while (envp[i])
-		i++;
-	return (i + 1);
-}
-void	ft_transformenvptoglobal(char **envp)
-{
-	int size;
-	int i;
+	data.line = malloc(sizeof(char) * 1);
+	if (data.line == NULL)
+		return (-1);
+	ft_bzero(data.line, 1);
 
-	size = ft_len_envp(envp);
-	data->tab_env = (char **)malloc(sizeof(char*) * size + 5);
-	i = -1;
-	while (++i < size - 1)
-		data->tab_env[i] = ft_strdup(envp[i]);
-}
-
-void ft_free(void)
-{
-	int i;
-
-	i = 0;
-	while (data->tab_env[i])
+	while (read(0, carac, 1) >= 0)
 	{
-			free(data->tab_env[i]);
-			i++;
+		carac[1] = 0;
+		data.line = ft_strjoin(data.line, carac);
+		if (carac[0] == '\n')
+			break;
+	}
+	return(1);
+}
+
+
+
+
+
+void ft_parsing_command(char *line)
+{
+	char *command;
+
+	ft_trim(line, &command);
+	if (ft_strncmp(command, "echo", ft_strlen("echo")) == 0)
+	{
+		ft_echo(command);
 	}
 }
-
-
 int		main(int argc, char** argv, char** envp)
 {
 	int		i;
@@ -45,12 +47,16 @@ int		main(int argc, char** argv, char** envp)
 	(void)argc;
 	(void)argv;
 	i = 0;
-	data = malloc(sizeof(t_mega_structure));
+
+	
+	ft_transformenvptoglobal(envp);
+	
 	while (42)
 	{
-		ft_transformenvptoglobal(envp);
+		
 		ft_display_cwd();
-
+		ft_read_line();
+		ft_parsing_command(data.line);
 		//ft_free();
 	}
 }

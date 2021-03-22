@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <libft.h>
 #include "minishell.h"
-static char	*ft_change_cwd(char *cwd, char **tab_env)
+static char	*ft_change_cwd(char *cwd)
 {
 	char	*home;
 	int		i;
@@ -11,13 +11,13 @@ static char	*ft_change_cwd(char *cwd, char **tab_env)
 	int		k;
 
 	i = 0;
-	while (tab_env[i] && ft_strncmp(tab_env[i], "HOME", 4) != 0)
+	while (data.tab_env[i] && ft_strncmp(data.tab_env[i], "HOME", 4) != 0)
 		i++;
 	home = (char *)malloc(sizeof(char) * (ft_strlen(cwd) + 1));
 	if (home == NULL)
 		return (NULL);
 	j = 0;
-	while (cwd[j] == tab_env[i][j + 5])
+	while (cwd[j] == data.tab_env[i][j + 5])
 		j++;
 	home[0] = '~';
 	home[1] = '/';
@@ -39,10 +39,11 @@ static char	*ft_change_cwd(char *cwd, char **tab_env)
 	if (cwd == NULL)
 		return ;
 	getcwd(cwd, 4096);
-	home = ft_change_cwd(cwd, data->tab_env);
+	home = ft_change_cwd(cwd);
+	printf("\033[0;35m");
 	printf("%s", home);
-	printf(" \033[31m︻\033[0m\033[32m┳\033[0m\033[33mデ");
-	printf("\033[0m\033[34m═\033[0m\033[35m—\033[0m$ ");
+	printf("\033[0m\033[34m♥ ");
+	printf("\n");
 	free(cwd);
 	free(home);
 }

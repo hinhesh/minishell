@@ -5,7 +5,10 @@ OBJ = ${SRCS:.c=.o}
 
 SRCS = main.c\
 		display_message.c\
-		
+		envp.c\
+		utils.c\
+		errors.c\
+		echo.c\
 
 # COLORS
 C_NO	=	"\033[00m"

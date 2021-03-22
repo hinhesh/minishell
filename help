@@ -1,0 +1,19 @@
+Functions allowed
+
+printf
+Malloc
+Free
+write
+open
+read
+close
+fork
+wait
+waitpid
+wait3
+wait4
+signal
+kill
+exit
+getcwd
+chdir
