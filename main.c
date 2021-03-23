@@ -26,7 +26,21 @@ int 	ft_read_line(void)
 	return(1);
 }
 
+void ft_cd(char *command)
+{
+	int i;
 
+	command = &command[2];
+	ft_trim(command, &command);
+	if (chdir(command) != 0)
+		ft_error();
+	i = 0;
+	while(data.tab_env[i] != 0)
+		free(data.tab_env[i]);
+	free(data.tab_env);
+	//ft_transformenvptoglobal(envp)
+
+}
 
 
 
@@ -36,9 +50,9 @@ void ft_parsing_command(char *line)
 
 	ft_trim(line, &command);
 	if (ft_strncmp(command, "echo", ft_strlen("echo")) == 0)
-	{
 		ft_echo(command);
-	}
+//	if (ft_strncmp(command, "cd", ft_strlen("cd")) == 0)
+//		ft_cd(command);
 }
 int		main(int argc, char** argv, char** envp)
 {
@@ -48,7 +62,6 @@ int		main(int argc, char** argv, char** envp)
 	(void)argv;
 	i = 0;
 
-	
 	ft_transformenvptoglobal(envp);
 	
 	while (42)
