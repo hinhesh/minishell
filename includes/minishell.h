@@ -7,6 +7,7 @@ typedef struct s_mega_structure{
     char **tab_env;
     char *line;
     char *command;
+    char *space;
 }t_mega_structure;
 
 
@@ -22,4 +23,5 @@ void ft_error();
 void ft_echo(char *command);
 int ft_check_space(char c);
 char *ft_word(char *phrase);
+void ft_cd(char *command);
 #endif

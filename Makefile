@@ -9,6 +9,7 @@ SRCS = main.c\
 		utils.c\
 		errors.c\
 		echo.c\
+		ft_cd.c\
 
 # COLORS
 C_NO	=	"\033[00m"

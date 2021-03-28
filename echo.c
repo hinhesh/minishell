@@ -15,7 +15,6 @@ char *ft_flags_echo(char *command)
         if (ft_trim(tmp, &tmp) == 1)
             {
                 command = tmp;
-                command[ft_strlen(command) - 1] = '\0';
                 return(command);
             }
     }
@@ -64,7 +63,8 @@ char *ft_check_variable(char *command)
         ft_putchar_fd('$', 1);
         return(command);
     }
-    if (ft_search_envp(var) == 0)
+    if (ft_search_envp(var) == 0 
+    && command[ft_strlen(var)] != '\0')
         ft_trim(&command[ft_strlen(var)], &command);
     else 
         command = &command[ft_strlen(var)];

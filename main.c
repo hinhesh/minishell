@@ -26,21 +26,7 @@ int 	ft_read_line(void)
 	return(1);
 }
 
-void ft_cd(char *command)
-{
-	int i;
 
-	command = &command[2];
-	ft_trim(command, &command);
-	if (chdir(command) != 0)
-		ft_error();
-	i = 0;
-	while(data.tab_env[i] != 0)
-		free(data.tab_env[i]);
-	free(data.tab_env);
-	//ft_transformenvptoglobal(envp)
-
-}
 
 
 
@@ -49,10 +35,23 @@ void ft_parsing_command(char *line)
 	char *command;
 
 	ft_trim(line, &command);
+	command[ft_strlen(command) - 1] = '\0';
 	if (ft_strncmp(command, "echo", ft_strlen("echo")) == 0)
 		ft_echo(command);
-//	if (ft_strncmp(command, "cd", ft_strlen("cd")) == 0)
-//		ft_cd(command);
+	if (ft_strncmp(command, "cd", ft_strlen("cd")) == 0)
+		ft_cd(command);
+}
+void ft_initialize(void)
+{
+	data.space = malloc(sizeof(char) * 7);
+	data.space[0] = '\t';
+	data.space[1] = '\n';
+	data.space[2] = '\v';
+	data.space[3] = '\f';
+	data.space[4] = '\r';
+	data.space[5] = ' ';
+	data.space[6] = '\0';
+
 }
 int		main(int argc, char** argv, char** envp)
 {
@@ -61,13 +60,14 @@ int		main(int argc, char** argv, char** envp)
 	(void)argc;
 	(void)argv;
 	i = 0;
-
+	ft_initialize();
 	ft_transformenvptoglobal(envp);
 	
 	while (42)
 	{
 		
 		ft_display_cwd();
+
 		ft_read_line();
 		ft_parsing_command(data.line);
 		//ft_free();
