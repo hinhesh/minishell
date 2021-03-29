@@ -27,5 +27,6 @@ void ft_export(char *command)
         replace->before->next = new;
         new->before = replace->before;
         replace->before = new;
+        ft_read_envp();
     }
 }

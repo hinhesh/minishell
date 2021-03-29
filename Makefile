@@ -12,6 +12,8 @@ SRCS = main.c\
 		ft_pwd.c\
 		ft_tree_env.c\
 		ft_export.c\
+		ft_unset.c\
+		ft_env.c\
 
 # COLORS
 C_NO	=	"\033[00m"

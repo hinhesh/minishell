@@ -43,6 +43,10 @@ void ft_parsing_command(char *line)
 		ft_pwd(command);
 	if (ft_strncmp(command, "export", ft_strlen("export")) == 0)
 		ft_export(command);
+	if (ft_strncmp(command, "unset", ft_strlen("unset")) == 0)
+		ft_unset(command);
+	if (ft_strncmp(command, "env", ft_strlen("env")) == 0)
+		ft_env(command);
 	free(command);
 }
 void ft_initialize(void)
