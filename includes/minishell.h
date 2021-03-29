@@ -2,6 +2,7 @@
 # define MINISHELL_H
 
 
+
 typedef struct s_mega_structure{
 
     char **tab_env;
