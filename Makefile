@@ -5,12 +5,13 @@ OBJ = ${SRCS:.c=.o}
 
 SRCS = main.c\
 		display_message.c\
-		envp.c\
 		utils.c\
 		errors.c\
 		echo.c\
 		ft_cd.c\
 		ft_pwd.c\
+		ft_tree_env.c\
+		ft_export.c\
 
 # COLORS
 C_NO	=	"\033[00m"

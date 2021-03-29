@@ -6,18 +6,18 @@
 static char	*ft_change_cwd(char *cwd)
 {
 	char	*home;
-	int		i;
 	int		j;
 	int		k;
+	t_env *tmp;
 
-	i = 0;
-	while (data.tab_env[i] && ft_strncmp(data.tab_env[i], "HOME", 4) != 0)
-		i++;
+	tmp = *(data.env);
+	while (tmp && ft_strncmp(tmp->key, "HOME", 4) != 0)
+		tmp = tmp->next;
 	home = (char *)malloc(sizeof(char) * (ft_strlen(cwd) + 1));
 	if (home == NULL)
 		return (NULL);
 	j = 0;
-	while (cwd[j] == data.tab_env[i][j + 5])
+	while (cwd[j] == tmp->value[j])
 		j++;
 	home[0] = '~';
 	home[1] = '/';

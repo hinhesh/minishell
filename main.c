@@ -15,7 +15,6 @@ int 	ft_read_line(void)
 	if (data.line == NULL)
 		return (-1);
 	ft_bzero(data.line, 1);
-
 	while (read(0, carac, 1) >= 0)
 	{
 		carac[1] = 0;
@@ -42,6 +41,9 @@ void ft_parsing_command(char *line)
 		ft_cd(command);
 	if (ft_strncmp(command, "pwd", ft_strlen("pwd")) == 0)
 		ft_pwd(command);
+	if (ft_strncmp(command, "export", ft_strlen("export")) == 0)
+		ft_export(command);
+	free(command);
 }
 void ft_initialize(void)
 {
@@ -63,13 +65,12 @@ int		main(int argc, char** argv, char** envp)
 	(void)argv;
 	i = 0;
 	ft_initialize();
-	ft_transformenvptoglobal(envp);
+	ft_build_tree_env(envp);
+	
 	
 	while (42)
 	{
-		
 		ft_display_cwd();
-
 		ft_read_line();
 		ft_parsing_command(data.line);
 		//ft_free();

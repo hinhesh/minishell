@@ -23,30 +23,15 @@ char *ft_flags_echo(char *command)
 
 int ft_search_envp(char *var)
 {
-    int i;
-    int j;
-    int len;
-    char *line;
+    t_env *env;
 
-    i = 0;
-    while (data.tab_env[i] != 0 && ft_strncmp(data.tab_env[i],
+    env = *(data.env);
+    while (env && ft_strncmp(env->key,
     var, ft_strlen(var)) != 0)
-		i++;
-    if (data.tab_env[i] == 0)
+		env = env->next;
+    if (env == 0)
         return (0);
-	line = (char *)malloc(sizeof(char) * (ft_strlen(data.tab_env[i]) + 1));
-	if (line == NULL)
-		return (0);
-    len = ft_strlen(var);
-    j = 0;
-    while (data.tab_env[i][j + len] != '\0')
-    {
-        line[j] = data.tab_env[i][j + len];
-        j++;
-    }
-    line[j] = '\0';
-    ft_putstr_fd(&line[1], 1);
-    free(line);
+    ft_putstr_fd(env->value, 1);
     return (1);
 }
 

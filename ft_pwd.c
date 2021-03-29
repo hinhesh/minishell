@@ -20,5 +20,4 @@ void ft_pwd(char *command)
     }
     else
         ft_putstr_fd("Too many arguments\n", 1);
-    free(command);
 }

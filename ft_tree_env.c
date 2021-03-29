@@ -1,36 +1,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "libft/libft.h"
-
-typedef struct s_env
-{
-    char *key;
-    char *value;
-    struct s_env *next;
-}t_env;
-
-
-typedef struct s_mega_structure{
-
-    t_env **env;
-}t_mega_structure;
-
-t_mega_structure data;
+#include "minishell.h"
+#include <libft.h>
 
 t_env *ft_create_node_env(char *chain)
 {
     t_env *new;
+    char **tab;
 
     new = malloc(sizeof(t_env));
     if (new == NULL)
         return (NULL);
     new->next = NULL;
-    new->key = ft_strdup(chain);
-    if (new->key == NULL)
-        return (NULL);
-    new->value = NULL;
-
+    new->before = NULL;
+    tab = ft_split(chain, "=");
+    new->key = ft_strdup(tab[0]);
+    free(tab[0]);
+    if (tab[1])
+    {
+        new->value = ft_strdup(tab[1]);
+        free(tab[1]);
+    }
+    free(tab);
     return (new);
 }
 
@@ -53,9 +45,9 @@ void ft_add_env(t_env **tree, t_env *new)
     {
         if (*tree != NULL)
         {
- 
-           last = ft_last_env(tree);
+            last = ft_last_env(tree);
             last->next = new;
+            new->before = last;
         }
         else
                 *tree = new;
@@ -86,10 +78,25 @@ void ft_read_envp()
     temp = *data.env;
     while (temp != NULL)
     {
-        printf("%s\n",temp->key);
+        printf("%s",temp->key);
+        printf("=");
+        printf("%s\n",temp->value);
         temp = temp->next;
     }
 }
+t_env *ft_search_env(char *chain)
+{
+    t_env *tmp;
+
+    tmp = *(data.env);
+    while (tmp != NULL)
+    {
+        if (ft_strncmp(tmp->key, chain, ft_strlen(tmp->key)) == 0)
+            return(tmp);
+        tmp = tmp->next;
+    }
+    return (NULL);
+}/*
 int		main(int argc, char** argv, char** envp)
 {
 	int		i;
@@ -99,4 +106,4 @@ int		main(int argc, char** argv, char** envp)
 	i = 0;
     ft_build_tree_env(envp);
     ft_read_envp();
-}
+}*/
