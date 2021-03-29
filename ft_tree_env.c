@@ -22,17 +22,18 @@ t_env *ft_create_node_env(char *chain)
 {
     t_env *new;
 
-    new = malloc(sizeof(t_env *));
+    new = malloc(sizeof(t_env));
     if (new == NULL)
         return (NULL);
+    new->next = NULL;
     new->key = ft_strdup(chain);
     if (new->key == NULL)
         return (NULL);
     new->value = NULL;
-   new->next = NULL;
-    printf("%s",new->key);
+
     return (new);
 }
+
 
 t_env *ft_last_env(t_env **tree)
 {
@@ -52,11 +53,12 @@ void ft_add_env(t_env **tree, t_env *new)
     {
         if (*tree != NULL)
         {
-            last = ft_last_env(tree);
+ 
+           last = ft_last_env(tree);
             last->next = new;
         }
         else
-            *tree = new;
+                *tree = new;
     }
 
 }
@@ -66,18 +68,27 @@ void ft_build_tree_env(char **envp)
     t_env *temp;
 
     data.env = (t_env **)malloc(sizeof(t_env*));
+    *(data.env) = NULL;
     if (data.env == NULL)
         return;
-    i = 5;
-     temp = ft_create_node_env(envp[i]);
-     /*
+    i = 0;
     while (envp[i] != NULL)
     {
         temp = ft_create_node_env(envp[i]);
-      //  printf("%s",temp->key);
-       // ft_add_env(data.env, temp);
+        ft_add_env(data.env, temp);
         i++;
-    }*/
+    }
+}
+void ft_read_envp()
+{
+    t_env *temp;
+    
+    temp = *data.env;
+    while (temp != NULL)
+    {
+        printf("%s\n",temp->key);
+        temp = temp->next;
+    }
 }
 int		main(int argc, char** argv, char** envp)
 {
@@ -87,14 +98,5 @@ int		main(int argc, char** argv, char** envp)
 	(void)argv;
 	i = 0;
     ft_build_tree_env(envp);
-    t_env *temp;
-    temp = *data.env;
-    //printf("%s",temp->key);
-    /*
-    while (temp != NULL)
-    {
-        printf("%s",temp->key);
-        temp = temp->next;
-    }*/
-    
+    ft_read_envp();
 }
