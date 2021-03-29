@@ -44,3 +44,24 @@ int ft_trim(char *line, char **line_trimmed)
 	*line_trimmed = line;
 	return(trimmed);
 }
+int ft_size(char **arg)
+{
+    int i;
+
+    i = 0;
+    while (arg[i] != NULL)
+         i++;
+    return (i);
+}
+
+char *ft_print_path(void)
+{
+    char *cwd;
+
+	cwd = (char*)malloc(sizeof(char) * 4096);
+	if (cwd == NULL)
+		return(NULL);
+	getcwd(cwd, 4096);
+    //ft_putstr_fd(cwd, 1);
+    return(cwd);
+}

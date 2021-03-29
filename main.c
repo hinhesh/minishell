@@ -40,6 +40,8 @@ void ft_parsing_command(char *line)
 		ft_echo(command);
 	if (ft_strncmp(command, "cd", ft_strlen("cd")) == 0)
 		ft_cd(command);
+	if (ft_strncmp(command, "pwd", ft_strlen("pwd")) == 0)
+		ft_pwd(command);
 }
 void ft_initialize(void)
 {

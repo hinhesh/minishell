@@ -4,17 +4,6 @@
 #include <unistd.h>
 #include <libft.h>
 
-char *ft_print_path(void)
-{
-    char *cwd;
-
-	cwd = (char*)malloc(sizeof(char) * 4096);
-	if (cwd == NULL)
-		return(NULL);
-	getcwd(cwd, 4096);
-    //ft_putstr_fd(cwd, 1);
-    return(cwd);
-}
 
 char *ft_check_relative(char *command)
 {
@@ -31,15 +20,7 @@ char *ft_check_relative(char *command)
     ft_strlcat(abs, command, ft_strlen(cwd) + ft_strlen(command) + 10);
     return(abs);
 }
-int ft_size(char **arg)
-{
-    int i;
 
-    i = 0;
-    while (arg[i] != NULL)
-         i++;
-    return (i);
-}
 
 void ft_cd(char *command)
 {

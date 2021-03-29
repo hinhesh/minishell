@@ -24,4 +24,7 @@ void ft_echo(char *command);
 int ft_check_space(char c);
 char *ft_word(char *phrase);
 void ft_cd(char *command);
+int ft_size(char **arg);
+char *ft_print_path(void);
+void ft_pwd(char *command);
 #endif
