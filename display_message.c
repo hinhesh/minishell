@@ -41,7 +41,7 @@ static char	*ft_change_cwd(char *cwd)
 	getcwd(cwd, 4096);
 	home = ft_change_cwd(cwd);
 	printf("\033[0;35m");
-	printf("%s", home);
+	printf("<HﻉȽしo ຍẜri౬ᙏd>");
 	printf("\033[0m\033[34m♥ ");
 	printf("\n");
 	free(cwd);

@@ -37,6 +37,7 @@ void ft_echo(char *command);
 int ft_check_space(char c);
 char *ft_word(char *phrase);
 void ft_export(char *command);
+void ft_create_var(char *chain);
 void ft_cd(char *command);
 int ft_size(char **arg);
 char *ft_print_path(void);
